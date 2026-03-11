@@ -3,7 +3,7 @@ from pathlib import Path
 from typing import Dict
 
 from app.config import get_settings
-from app.pipelines.query import answer_question
+from app.rag.pipelines.query import answer_question
 
 
 def _load_questions(path: Path):

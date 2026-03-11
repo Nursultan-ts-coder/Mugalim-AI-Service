@@ -1,9 +1,9 @@
 import argparse
 
-from app.pipelines.eval import run_eval
-from app.pipelines.index import build_index
-from app.pipelines.query import answer_question
-from app.whatsapp_bot import run_whatsapp_bot
+from app.rag.pipelines.eval import run_eval
+from app.rag.pipelines.index import build_index
+from app.rag.pipelines.query import answer_question
+from app.bot.whatsapp import run_whatsapp_bot
 
 
 def _cmd_ingest(_args: argparse.Namespace) -> None:
@@ -33,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="RAG CLI")
     sub = parser.add_subparsers(dest="command", required=True)
 
-    ingest = sub.add_parser("ingest", help="Load, chunk, and index docs")
+    ingest = sub.add_parser("ingest", help="Load, chunk, and index docs from data/raw")
     ingest.set_defaults(func=_cmd_ingest)
 
     query = sub.add_parser("query", help="Ask a question")

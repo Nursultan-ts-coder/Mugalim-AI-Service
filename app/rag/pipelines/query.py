@@ -5,8 +5,8 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.prompts import ChatPromptTemplate
 
 from app.config import get_settings
-from app.llm import get_llm
-from app.vectorstore import get_vectorstore
+from app.rag.llm import get_llm
+from app.rag.vectorstore import get_vectorstore
 
 
 def _format_context(docs: List[Document]) -> str:

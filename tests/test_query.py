@@ -7,13 +7,13 @@ from app.config import get_settings
 from app.pipelines.query import answer_question
 
 
-def _has_index(chroma_dir: Path) -> bool:
-    return chroma_dir.exists() and any(chroma_dir.iterdir())
+def _has_index(faiss_dir: Path) -> bool:
+    return (faiss_dir / "index.faiss").exists()
 
 
 @pytest.mark.skipif(
-    not _has_index(get_settings().chroma_dir),
-    reason="No Chroma index found",
+    not _has_index(get_settings().faiss_dir),
+    reason="No FAISS index found",
 )
 def test_answer_question_smoke():
     answer, _docs = answer_question("What files are in this knowledge base?")

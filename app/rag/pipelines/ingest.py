@@ -1,11 +1,12 @@
 import json
+from pathlib import Path
 from typing import List
 
 from langchain_core.documents import Document
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from app.config import get_settings
-from app.loaders import load_documents_from_dir
+from app.rag.loaders import load_documents_from_dir
 
 
 def ingest_documents() -> List[Document]:
