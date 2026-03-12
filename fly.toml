@@ -1,12 +1,12 @@
 # Fly.io config for WhatsApp bot worker
-app = "rag-whatsapp-bot"
+app = "mugalim-ai-whatsapp-bot"
 primary_region = "iad"
 
 [build]
 
 # Override the Dockerfile CMD to run the bot instead of the API
 [processes]
-  app = "python -m app.cli whatsapp-bot --session-name rag_whatsapp_bot --database /app/rag_whatsapp_bot"
+  app = "python -m app.cli whatsapp-bot --session-name mugalim-ai-whatsapp-bot--database /app/rag_whatsapp_bot"
 
 [env]
   API_URL = "https://rag-api-5ayx.onrender.com"
