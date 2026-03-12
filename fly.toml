@@ -1,30 +1,40 @@
-# Fly.io config for WhatsApp bot worker
-app = "mugalim-ai-whatsapp-bot"
-primary_region = "iad"
+# fly.toml app configuration file generated for mugalim-ai-whatsapp-bot on 2026-03-12T07:15:22+06:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = 'mugalim-ai-whatsapp-bot'
+primary_region = 'iad'
 
 [build]
 
-# Override the Dockerfile CMD to run the bot instead of the API
-[processes]
-  app = "python -m app.cli whatsapp-bot --session-name mugalim-ai-whatsapp-bot--database /app/rag_whatsapp_bot"
-
 [env]
-  API_URL = "https://rag-api-5ayx.onrender.com"
-  GOOGLE_GEN_MODEL = "gemini-2.5-flash"
-  GOOGLE_EMBED_MODEL = "gemini-embedding-001"
-  DATA_DIR = "/app/data"
-  RAW_DIR = "/app/data/raw"
-  PROCESSED_DIR = "/app/data/processed"
-  FAISS_DIR = "/app/data/faiss"
-  EVAL_DIR = "/app/data/eval"
-  CHUNK_SIZE = "800"
-  CHUNK_OVERLAP = "120"
-  RETRIEVAL_K = "4"
-  RETRIEVAL_FETCH_K = "12"
-  TEMPERATURE = "0.2"
+  API_URL = 'https://rag-api-5ayx.onrender.com'
+  CHUNK_OVERLAP = '120'
+  CHUNK_SIZE = '800'
+  DATA_DIR = '/app/data'
+  EVAL_DIR = '/app/data/eval'
+  FAISS_DIR = '/app/data/faiss'
+  GOOGLE_EMBED_MODEL = 'gemini-embedding-001'
+  GOOGLE_GEN_MODEL = 'gemini-2.5-flash'
+  PROCESSED_DIR = '/app/data/processed'
+  RAW_DIR = '/app/data/raw'
+  RETRIEVAL_FETCH_K = '12'
+  RETRIEVAL_K = '4'
+  TEMPERATURE = '0.2'
 
-# No HTTP service needed — this is a background worker
+[processes]
+  app = 'python -m app.cli whatsapp-bot --session-name mugalim-ai-whatsapp-bot --database /app/rag_whatsapp_bot'
+
+[http_service]
+  internal_port = 8000
+  force_https = true
+  auto_stop_machines = 'stop'
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ['app']
+
 [[vm]]
-  memory = "256mb"
-  cpu_kind = "shared"
+  memory = '256mb'
   cpus = 1
+  memory_mb = 256
