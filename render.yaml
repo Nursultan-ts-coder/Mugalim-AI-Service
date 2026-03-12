@@ -36,7 +36,7 @@ services:
     name: whatsapp-bot
     runtime: docker
     plan: free
-    startCommand: python -m app.cli whatsapp-bot --database /app/data/neonize.db
+    startCommand: python -m app.cli whatsapp-bot --session-name rag_whatsapp_bot --database /app/rag_whatsapp_bot
     envVars:
       - key: GOOGLE_API_KEY
         sync: false  # Set this manually in Render dashboard
