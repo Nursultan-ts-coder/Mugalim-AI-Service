@@ -2,6 +2,8 @@
 __pycache__/
 *.pyc
 .env
+.DS_Store
 /data/faiss/
 /data/processed/
 /data/eval/results.jsonl
+# neonize.db is intentionally NOT ignored so the WhatsApp session can be committed

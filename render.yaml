@@ -31,3 +31,38 @@ services:
         value: "12"
       - key: TEMPERATURE
         value: "0.2"
+
+  - type: worker
+    name: whatsapp-bot
+    runtime: docker
+    plan: free
+    startCommand: python -m app.cli whatsapp-bot --database /app/data/neonize.db
+    envVars:
+      - key: GOOGLE_API_KEY
+        sync: false  # Set this manually in Render dashboard
+      - key: GOOGLE_GEN_MODEL
+        value: gemini-2.5-flash
+      - key: GOOGLE_EMBED_MODEL
+        value: gemini-embedding-001
+      - key: API_URL
+        value: https://rag-api-5ayx.onrender.com  # Update to your actual Render API URL
+      - key: DATA_DIR
+        value: /app/data
+      - key: RAW_DIR
+        value: /app/data/raw
+      - key: PROCESSED_DIR
+        value: /app/data/processed
+      - key: FAISS_DIR
+        value: /app/data/faiss
+      - key: EVAL_DIR
+        value: /app/data/eval
+      - key: CHUNK_SIZE
+        value: "800"
+      - key: CHUNK_OVERLAP
+        value: "120"
+      - key: RETRIEVAL_K
+        value: "4"
+      - key: RETRIEVAL_FETCH_K
+        value: "12"
+      - key: TEMPERATURE
+        value: "0.2"

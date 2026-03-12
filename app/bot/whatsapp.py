@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any
 import requests
 
@@ -75,7 +76,7 @@ def _send_text(client_obj: Any, chat_jid: Any, text: str) -> None:
 
 
 def _call_api(endpoint: str, method: str = "GET", **kwargs) -> dict:
-    api_url = "http://localhost:8000"
+    api_url = os.getenv("API_URL", "http://localhost:8000").rstrip("/")
     url = f"{api_url}{endpoint}"
 
     try:
