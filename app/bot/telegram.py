@@ -12,6 +12,9 @@ except ImportError:
     pass
 
 from aiogram import Bot, Dispatcher, F
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
+from aiogram.exceptions import TelegramBadRequest
 from aiogram.filters import Command
 from aiogram.types import Message
 
@@ -131,9 +134,12 @@ async def handle_question(message: Message) -> None:
             reply = reply[:3999] + "…"
         if docs:
             reply += f"\n\n📚 Sources: {len(docs)} document(s)"
-        await message.answer(reply)
+        try:
+            await message.answer(reply)
+        except TelegramBadRequest:
+            await message.answer(reply, parse_mode=None)
     except Exception as e:
-        await message.answer(f"❌ Error: {e}")
+        await message.answer(f"❌ Error: {e}", parse_mode=None)
 
 
 def run_telegram_bot() -> None:
@@ -143,7 +149,7 @@ def run_telegram_bot() -> None:
     if not token:
         raise RuntimeError("TELEGRAM_BOT_TOKEN environment variable is not set")
 
-    bot = Bot(token=token)
+    bot = Bot(token=token, default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN))
     dp = Dispatcher()
 
     dp.message.register(cmd_start, Command(commands=["start", "help"]))
