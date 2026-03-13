@@ -1,33 +1,15 @@
-# fly.toml app configuration file generated for mugalim-ai-whatsapp-bot on 2026-03-12T07:15:22+06:00
+# fly.toml app configuration file generated for mugalim-ai-service on 2026-03-13T13:00:58Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'mugalim-ai-whatsapp-bot'
-primary_region = 'iad'
+app = 'mugalim-ai-service'
+primary_region = 'ams'
 
 [build]
 
-[env]
-  API_URL = 'https://rag-api-5ayx.onrender.com'
-  CHUNK_OVERLAP = '120'
-  CHUNK_SIZE = '800'
-  DATA_DIR = '/app/data'
-  EVAL_DIR = '/app/data/eval'
-  FAISS_DIR = '/app/data/faiss'
-  GOOGLE_EMBED_MODEL = 'gemini-embedding-001'
-  GOOGLE_GEN_MODEL = 'gemini-2.5-flash'
-  PROCESSED_DIR = '/app/data/processed'
-  RAW_DIR = '/app/data/raw'
-  RETRIEVAL_FETCH_K = '12'
-  RETRIEVAL_K = '4'
-  TEMPERATURE = '0.2'
-
-[processes]
-  app = 'python -m app.cli whatsapp-bot --session-name mugalim-ai-whatsapp-bot --database /app/rag_whatsapp_bot'
-
 [http_service]
-  internal_port = 8000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = 'stop'
   auto_start_machines = true
@@ -35,6 +17,7 @@ primary_region = 'iad'
   processes = ['app']
 
 [[vm]]
-  memory = '256mb'
+  memory = '1gb'
+  cpu_kind = 'shared'
   cpus = 1
   memory_mb = 256
