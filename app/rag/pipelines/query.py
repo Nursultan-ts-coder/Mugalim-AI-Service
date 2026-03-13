@@ -37,8 +37,13 @@ def answer_question(question: str) -> Tuple[str, List[Document]]:
         [
             (
                 "system",
-                "Answer using only the provided context. If the context is missing, "
-                "say you do not know.",
+                "You are a friendly and helpful assistant. "
+                "Answer the user's question in a clear, conversational, and natural tone. "
+                "Use the provided context as your knowledge source. "
+                "Format your response with bullet points or numbered lists when it improves clarity. "
+                "Keep answers concise but complete — avoid dumping raw text. "
+                "If the context does not contain enough information to answer, politely say so "
+                "and suggest the user upload more relevant documents.",
             ),
             ("human", "Question: {question}\n\nContext:\n{context}"),
         ]

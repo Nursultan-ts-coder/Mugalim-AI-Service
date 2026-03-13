@@ -8,4 +8,10 @@ if [ ! -d "/app/data/faiss" ] || [ -z "$(ls -A /app/data/faiss 2>/dev/null)" ]; 
     echo "Ingest complete."
 fi
 
+# Start Telegram bot in background if token is set
+if [ -n "$TELEGRAM_BOT_TOKEN" ]; then
+    echo "Starting Telegram bot..."
+    python -m app.cli telegram-bot &
+fi
+
 exec uvicorn app.api.main:app --host 0.0.0.0 --port ${PORT:-8000}
