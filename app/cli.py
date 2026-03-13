@@ -3,7 +3,7 @@ import argparse
 from app.rag.pipelines.eval import run_eval
 from app.rag.pipelines.index import build_index
 from app.rag.pipelines.query import answer_question
-from app.bot.whatsapp import run_whatsapp_bot
+from app.bot.telegram import run_telegram_bot
 
 
 def _cmd_ingest(_args: argparse.Namespace) -> None:
@@ -25,10 +25,6 @@ def _cmd_eval(_args: argparse.Namespace) -> None:
     run_eval()
 
 
-def _cmd_whatsapp_bot(args: argparse.Namespace) -> None:
-    run_whatsapp_bot(session_name=args.session_name, database=args.database)
-
-
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="RAG CLI")
     sub = parser.add_subparsers(dest="command", required=True)
@@ -43,18 +39,8 @@ def build_parser() -> argparse.ArgumentParser:
     eval_cmd = sub.add_parser("eval", help="Run eval set")
     eval_cmd.set_defaults(func=_cmd_eval)
 
-    whatsapp = sub.add_parser("whatsapp-bot", help="Start WhatsApp bot with Neonize")
-    whatsapp.add_argument(
-        "--session-name",
-        default="rag_whatsapp_bot",
-        help="Neonize client session name",
-    )
-    whatsapp.add_argument(
-        "--database",
-        default="data/neonize.db",
-        help="Path to Neonize session database",
-    )
-    whatsapp.set_defaults(func=_cmd_whatsapp_bot)
+    telegram = sub.add_parser("telegram-bot", help="Start Telegram bot with aiogram")
+    telegram.set_defaults(func=lambda _: run_telegram_bot())
 
     return parser
 
